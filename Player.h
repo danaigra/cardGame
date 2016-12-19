@@ -9,6 +9,7 @@
 class Player {
     static const int MAX_CARDS;
     std::vector<Card*> _cardsVec;
+	std::vector<Card*> _usesCards;
 	char* _name;
 	int _ID;
 	int _wins;
@@ -29,6 +30,8 @@ public:
     void winMatch();
     void loseMatch();
 	Point2D & getPosition();
+	int getNumOfCards();
+	Card* getRandCard();
 
 };
 

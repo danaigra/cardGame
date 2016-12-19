@@ -13,4 +13,5 @@ private:
 public:
 	Square & getTile(Point2D & location) const;
 	int movePlayerTo(Player& p, Point2D & location);
+	void addBoard(vector <vector<Square*>>& gameBoard);
 };

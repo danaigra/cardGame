@@ -13,6 +13,8 @@ public:
 	Point2D();
     int getX(){return _x;} 
     int getY(){return _y;} 
+	void setX() { int x = _x; }
+	void setY() { int y = _y; }
 };
 
 #endif // !_DANA_POINT2D

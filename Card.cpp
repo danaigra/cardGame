@@ -30,3 +30,13 @@ Card::Card()
 	cout << "card created" << endl;
 }
 
+int Card::getNum()
+{
+	return _num;
+}
+
+Color Card::getColor()
+{
+	return _color;
+}
+

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "Board.h"
+#include "Match.h"
 
 
 class Manager {
@@ -17,13 +18,14 @@ private:
 	ofstream _outputFile;
 
 public:
-	Manager();
+	Manager(Board board);
 	void start();
 	void stop();
-	void startMeet();
+	void startMeet(Player& p, Point2D point);
 	void endMeet();
-	void startMatch();
-	void endMatch();
+	void startMatch(Match& match, ofstream& outputFile);
+	void endMatch(Player& winner);
+	void getMyBoard(char* boardlen);
 
 };
 

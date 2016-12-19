@@ -11,6 +11,7 @@
 #include "Square.h"
 #include "Board.h"
 #include <string.h>
+#include <vector>
 
 using namespace std;
 
@@ -28,9 +29,12 @@ void main(int argc, char ** argv)
 	char slosses[3];
 	char sposx[4];
 	char sposy[4];
+	int i = 0, j = 0;
 	string tempBuff;
 	int num;
-	Manager mymanger;
+	vector <vector<Square*>> _gameBoard;
+	vector <Square*> vec;
+	Board _board;
 	if (argc < 3)
 	{
 		cout << "not enough parameters" << endl;
@@ -51,13 +55,33 @@ void main(int argc, char ** argv)
 		typeofobject = creationFile.get();
 		if (typeofobject == 'B')
 		{
-			int i = 0;
-			creationFile.getline(skipline, 1000, '\n');//skip ','
-			while (creationFile.get()!='B')
+			creationFile.getline(skipline, 1000, '\n');
+			while (!creationFile.eof())
 			{
-			creationFile.getline(tempBuff ,'\n');
+				if (typeofobject == 'B')
+				{
+					_board.addBoard(_gameBoard);
+					break;
+				}
+				else 
+				{
+					creationFile.getline(skipline, 1000, '\n');
+					while (skipline[i] != '\n')
+					{
+						if (skipline[i]=='X')
+						{
+							vec.push_back(new Square(false, NULL, false, Point2D(j, i)));
+						}
+						else
+						{
+							vec.push_back(new Square(false, NULL, true, Point2D(j, i)));
+						}
+					}
+					j++;
+					_gameBoard.push_back(vec);
+					vec.clear();
+				}
 			}
-			
 		}
 		if (typeofobject == 'C')
 		{
@@ -90,7 +114,9 @@ void main(int argc, char ** argv)
 			int playerposx = atoi(sposx);
 			int playerposy = atoi(sposy);
 			Point2D point(playerposx, playerposy);
-			playersVec.push_back(new Player(name, playerID, playerwins, playerlosses, point));
+			Player* _currentPlayer = new Player(name, playerID, playerwins, playerlosses, point);
+			playersVec.push_back(_currentPlayer);
+			_gameBoard[playerposx][playerposy]->addPlayer(_currentPlayer);
 		}
 		else if (typeofobject == '#')
 		{
@@ -99,7 +125,7 @@ void main(int argc, char ** argv)
 	}
 
 	//read the simulation and do the actions
-
+	Manager mymanger(_board);
 	while (!simulationFile.eof())
 	{
 		char strPlayerID[10];
@@ -128,6 +154,7 @@ void main(int argc, char ** argv)
 						playersVec[i]->moveToPoint(Point2D(posx, posy));
 						cout << "Moving player #" << playerID << " to " << posx << ":" << posy << endl;
 						outputFile << "Moving player #" << playerID << " to " << posx << ":" << posy << endl;
+						mymanger.startMeet(playersVec[i])
 						break;
 					}
 				}
@@ -180,6 +207,6 @@ void main(int argc, char ** argv)
 			creationFile.getline(skipline, 1000, '\n');
 		}
 	}
-	mymanger()
+	
 }
 

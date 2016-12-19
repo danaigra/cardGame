@@ -4,6 +4,7 @@ Square& Board::getTile(Point2D & location) const {
 	return *gameBoard.at(location.getX()).at(location.getY());
 }
 
+
 int Board::movePlayerTo(Player& p, Point2D & location) {
 	
 	int toRerturn = 0;
@@ -20,4 +21,9 @@ int Board::movePlayerTo(Player& p, Point2D & location) {
 	
 
 	return toRerturn;
+}
+
+void Board::addBoard(vector <vector<Square*>> & gameboard)
+{
+	this->gameBoard = gameboard;
 }

@@ -1,4 +1,6 @@
 #include "Player.h"
+#include <stdlib.h>
+#include <time.h>
 using namespace std;
 
 const int Player::MAX_CARDS = 5;
@@ -102,4 +104,19 @@ void Player::loseMatch()
 Point2D & Player::getPosition()
 {
 	return _position;
+}
+
+int Player::getNumOfCards()
+{
+	return _cardsVec.size();
+}
+
+Card * Player::getRandCard()
+{
+	int iSecret, iGuess;
+	srand(time(NULL));
+	iSecret = rand() % _cardsVec.size();
+	_usesCards.push_back(_cardsVec[iSecret]);
+	_cardsVec.erase(_cardsVec.begin() + iSecret);
+	return _usesCards.back();
 }

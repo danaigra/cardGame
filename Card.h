@@ -35,5 +35,7 @@ public:
 	Card(char* name, int num, Color color);
 	~Card();
 	Card();
+	int getNum();
+	Color getColor();
 };
 #endif // !_DANA_CARD

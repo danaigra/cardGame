@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Player.h"
+#include <fstream>
+
+using namespace std;
 
 class Match {
 private:
@@ -9,5 +12,5 @@ private:
 
 public:
 	Match(Player& p1, Player& p2);
-	Player& play();
+	Player& play(ofstream& outputFile);
 };
