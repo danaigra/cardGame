@@ -12,6 +12,7 @@ Card::Card(char * name, int num, Color color)
 	strcpy(_name ,name);
 	_num = num;
 	_color = color;
+	use = 0;
 	cout << "card created" << endl;
 }
 
@@ -39,4 +40,11 @@ Color Card::getColor()
 {
 	return _color;
 }
-
+void Card::setUse() 
+{
+	use = 1;
+}
+bool Card::getUse()
+{
+	return use;
+}

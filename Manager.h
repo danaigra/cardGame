@@ -19,12 +19,13 @@ private:
 
 public:
 	Manager(Board board);
+	~Manager();
 	void start();
 	void stop();
-	void startMeet(Player& p, Point2D point);
+	bool startMeet(Player& p, Point2D point, ofstream& outputFile);
 	void endMeet();
-	void startMatch(Match& match, ofstream& outputFile);
-	void endMatch(Player& winner);
+	Player& startMatch(Match& match, ofstream& outputFile);
+	void endMatch(Player& winner, Point2D point);
 	void getMyBoard(char* boardlen);
 
 };

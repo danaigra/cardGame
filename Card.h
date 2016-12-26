@@ -29,6 +29,7 @@ class Card {
 	char* _name;
 	int _num;
 	Color _color;
+	bool use;
 
 public:
 	void printCard();
@@ -37,5 +38,7 @@ public:
 	Card();
 	int getNum();
 	Color getColor();
+	void setUse();
+	bool getUse();
 };
 #endif // !_DANA_CARD

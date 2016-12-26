@@ -58,7 +58,7 @@ void main(int argc, char ** argv)
 			creationFile.getline(skipline, 1000, '\n');
 			while (!creationFile.eof())
 			{
-				if (typeofobject == 'B')
+				if (strcmp(skipline,"B")==0)
 				{
 					_board.addBoard(_gameBoard);
 					break;
@@ -66,7 +66,7 @@ void main(int argc, char ** argv)
 				else 
 				{
 					creationFile.getline(skipline, 1000, '\n');
-					while (skipline[i] != '\n')
+					while (skipline[i] != '\0')
 					{
 						if (skipline[i]=='X')
 						{
@@ -76,8 +76,10 @@ void main(int argc, char ** argv)
 						{
 							vec.push_back(new Square(false, NULL, true, Point2D(j, i)));
 						}
+						i++;
 					}
 					j++;
+					i = 0;
 					_gameBoard.push_back(vec);
 					vec.clear();
 				}
@@ -138,7 +140,10 @@ void main(int argc, char ** argv)
 			simulationFile >> &strPlayerID[1];
 			playerID = atoi(strPlayerID);
 			simulationFile >> strCommand;
-
+			if (strcmp(strCommand, "REST") == 0)
+			{
+				playersVec[i]->restPlayer();
+			}
 			if (strcmp(strCommand, "MOVE") == 0)
 			{
 				int posx;
@@ -147,14 +152,17 @@ void main(int argc, char ** argv)
 				simulationFile.get(); //skip the ':'
 				simulationFile >> posy;
 				simulationFile.get(); //skip the '\n'
+				Point2D new_point;
+				new_point.setX(posx);
+				new_point.setY(posy);
 				for (int i = 0; i < playersVec.size(); i++)
 				{
 					if (playersVec[i]->getID() == playerID)
 					{
-						playersVec[i]->moveToPoint(Point2D(posx, posy));
+						//playersVec[i]->moveToPoint(Point2D(posx, posy));
 						cout << "Moving player #" << playerID << " to " << posx << ":" << posy << endl;
 						outputFile << "Moving player #" << playerID << " to " << posx << ":" << posy << endl;
-						mymanger.startMeet(playersVec[i])
+						mymanger.startMeet(*playersVec[i],new_point, outputFile);
 						break;
 					}
 				}
@@ -206,6 +214,7 @@ void main(int argc, char ** argv)
 		{
 			creationFile.getline(skipline, 1000, '\n');
 		}
+		
 	}
 	
 }

@@ -14,4 +14,7 @@ class Square {
 		Square(bool, Player*, bool, Point2D);
 		void addPlayer(Player* currnetPlayer);
 		void removePlayer(Player* currentplayer);
+		bool getOccupied();
+		bool getTraversable();
+		Player* getCurrentPlayer();
 };

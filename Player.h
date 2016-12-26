@@ -21,6 +21,7 @@ public:
 	Player();
 	Player(char* name, int ID, int wins, int loss, Point2D position);
     ~Player();
+	int getMoves() { return _moves; }
     void setCards(std::vector<Card*> cards);
     void addCard(Card* pCard);
     void printPlayer();
@@ -32,7 +33,8 @@ public:
 	Point2D & getPosition();
 	int getNumOfCards();
 	Card* getRandCard();
-
+	void restPlayer();
+	void removeUsedCars(int i);
 };
 
 #endif // !_DANA_PLAYER

@@ -25,4 +25,18 @@ void Square::removePlayer(Player * currentplayer)
 	currentPlayer = NULL;
 }
 
+bool Square::getOccupied()
+{
+	return isOccupied;
+}
+
+bool Square::getTraversable()
+{
+	return isTraversable;
+}
+
+Player* Square::getCurrentPlayer()
+{
+	return currentPlayer;
+}
 

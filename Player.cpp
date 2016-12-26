@@ -17,7 +17,7 @@ Player::Player(std::vector<Card*> cards, char * name, int ID, int wins, int loss
 	_ID = ID;
 	_wins = wins;
 	_loss = loss;
-	_moves = moves;
+	_moves = moves = 3;
 	_position = position;
 	cout << "player created" << endl;
 }
@@ -83,25 +83,33 @@ void Player::printPlayer()
 
 void Player::moveToPoint(Point2D destination)
 {
-    _position = destination;
+	if (getMoves() > 0)
+	{
+		_moves--;
+		_position = destination;
+	}
+	else
+	{
+		cout << "Move is deined , plase chak youer Moves point " << endl;
+	}
 }
 
 void Player::attackUsingCard(int cardIndex)
 {
-    //in the future this will probably do something to the other player
+	//_cardsVec.at(cardIndex)->;
 }
 
 void Player::winMatch()
 {
-    //in the future this will probably do something
+	_wins++;
 }
 
 void Player::loseMatch()
 {
-    //in the future this will probably do something
+	_loss++;
 }
 
-Point2D & Player::getPosition()
+Point2D& Player::getPosition()
 {
 	return _position;
 }
@@ -119,4 +127,18 @@ Card * Player::getRandCard()
 	_usesCards.push_back(_cardsVec[iSecret]);
 	_cardsVec.erase(_cardsVec.begin() + iSecret);
 	return _usesCards.back();
+}
+void Player::restPlayer() 
+{
+	_moves = 3;
+}
+
+void Player::removeUsedCars(int i)
+{
+	for (int j = 0; j < i; j++)
+	{
+		Card* c = _usesCards.back();
+		_cardsVec.push_back(c);
+		_usesCards.pop_back();
+	}
 }

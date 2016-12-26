@@ -14,20 +14,40 @@ Manager::~Manager()
 }
 void Manager::start()
 {
+
 }
 
-void Manager::startMatch(Match& match, ofstream& outputFile)
+Player& Manager::startMatch(Match& match, ofstream& outputFile)
 {
-	endMatch(match.play(outputFile));
+	return (match.play(outputFile));
 }
 
-void Manager::endMatch(Player& winner)
+void Manager::endMatch(Player& winner, Point2D point)
 {
-	//TODO last 3 points of match
+	if (&winner != NULL)
+	{
+		Player* looser = myBoard.getTile(point).getCurrentPlayer();
+		myBoard.movePlayerTo(winner, point);
+	}
+
 }
 
-void Manager::startMeet(Player& p, Point2D point)
+bool Manager::startMeet(Player& p, Point2D point, ofstream& outputFile)
 {
-	//check if the move can be done and then startMatch
-	//call to endMatch
+	bool result=false;
+	if (this->myBoard.getTile(point).getOccupied())
+	{
+		Match match(p, *(myBoard.getTile(point).getCurrentPlayer()));
+		endMatch(startMatch(match, outputFile), point);
+	}
+	else if (!(this->myBoard.getTile(point).getOccupied()) && (this->myBoard.getTile(point).getTraversable()))
+	{
+		myBoard.movePlayerTo(p, point);
+	}
+	else if (!(this->myBoard.getTile(point).getTraversable()))
+	{
+		
+	}
+	return result;
+	//endMatch
 }
